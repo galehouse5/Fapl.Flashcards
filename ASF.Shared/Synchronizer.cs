@@ -1,4 +1,5 @@
 ﻿using ASF.Shared.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -25,6 +26,8 @@ namespace ASF.Shared
             this.imageLayoutGenerator = imageLayoutGenerator;
         }
 
+        public Action<string> Logger { get; set; }
+
         public async Task InitializeFlashcard(IFlashcard flashcard, IPet pet, SyncOptions options)
         {
             flashcard.SetDescription(pet);
@@ -46,6 +49,8 @@ namespace ASF.Shared
             SyncMetadata metadata,
             SyncOptions options)
         {
+            Logger?.Invoke($"Adding flashcard for {pet.Name} ({pet.ID})...");
+
             IFlashcard flashcard = set.CreateFlashcard();
             await InitializeFlashcard(flashcard, pet, options);
             await flashcardService.Add(flashcard, set);
@@ -60,6 +65,8 @@ namespace ASF.Shared
             SyncMetadata metadata,
             SyncOptions options)
         {
+            Logger?.Invoke($"Updating flashcard for {pet.Name} ({pet.ID})...");
+
             await InitializeFlashcard(flashcard, pet, options);
             await flashcardService.Save(flashcard, set);
 
@@ -68,6 +75,8 @@ namespace ASF.Shared
 
         public virtual async Task RemoveFlashcard(IFlashcardSet set, IFlashcard flashcard, SyncMetadata metadata)
         {
+            Logger?.Invoke($"Removing flashcard {flashcard.ID}...");
+
             metadata.Remove(flashcard);
             // Order is important.  The method above uses the flashcard's ID and the method below clears it.
             await flashcardService.Remove(flashcard, set);
@@ -79,6 +88,8 @@ namespace ASF.Shared
             SyncMetadata metadata,
             SyncOptions options)
         {
+            Logger?.Invoke($"Synchronizing flashcards for {pets.Count} pet(s)...");
+
             var indexedPets = pets.ToDictionary(p => p.ID);
             var indexedFlashcards = set.ToDictionary(f => f.ID);
 

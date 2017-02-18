@@ -43,7 +43,10 @@ public static async Task Run(TimerInfo timer, TraceWriter log)
     GenerateImageLayout imageLayoutGenerator = RecursiveShrinkingImageLayout.Generate;
 
     var synchronizer = new Synchronizer(
-        petService, flashcardService, syncService, imageLayoutGenerator);
+        petService, flashcardService, syncService, imageLayoutGenerator)
+    {
+        Logger = m => log.Info(m)
+    };
     await synchronizer.Synchronize(flashcardSetID, shelterID, new SyncOptions
     {
         PetFilter = p =>
