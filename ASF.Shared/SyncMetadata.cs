@@ -47,6 +47,12 @@ namespace ASF.Shared
 
         public void LinkAndSetLastUpdateTimestamp(IPet pet, IFlashcard flashcard)
         {
+            if (string.IsNullOrEmpty(pet.ID))
+                throw new ArgumentException("Pet must have an ID.", nameof(pet));
+
+            if (string.IsNullOrEmpty(flashcard.ID))
+                throw new ArgumentException("Flashcard must have an ID.", nameof(flashcard));
+
             FlashcardIDs[pet.ID] = flashcard.ID;
             PetLastUpdateTimestamps[pet.ID] = pet.LastUpdateTimestamp;
             PetIDs[flashcard.ID] = pet.ID;
@@ -54,6 +60,9 @@ namespace ASF.Shared
 
         public void Remove(IFlashcard flashcard)
         {
+            if (string.IsNullOrEmpty(flashcard.ID))
+                throw new ArgumentException("Flashcard must have an ID.", nameof(flashcard));
+
             string petID = GetPetID(flashcard);
             FlashcardIDs.Remove(petID ?? string.Empty);
             PetLastUpdateTimestamps.Remove(petID ?? string.Empty);

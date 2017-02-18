@@ -37,7 +37,7 @@ namespace ASF.Shared.Petfinder
             => dto.description;
 
         public string ID
-            => dto.shelterPetId;
+            => dto.id;
 
         public IReadOnlyCollection<string> ImageUrls
             => dto.media.photos

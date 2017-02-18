@@ -15,8 +15,8 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
   </PropertyGroup>
   <ItemGroup>
-    <SharedAssembly Include="..\ASF.Shared\bin\Release\ASF.Shared.dll" />
-    <SharedAssembly Include="..\ASF.Shared\bin\Release\ASF.Shared.pdb" />
+    <SharedAssembly Include="..\ASF.Shared\bin\$(Configuration)\ASF.Shared.dll" />
+    <SharedAssembly Include="..\ASF.Shared\bin\$(Configuration)\ASF.Shared.pdb" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\AzureFunctions\Microsoft.AzureFunctions.targets" Condition="'$(VSToolsPath)' != ''" />
   <Target Name="CopySharedAssemblies" BeforeTargets="Build">
