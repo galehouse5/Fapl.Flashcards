@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(VSToolsPath)\AzureFunctions\Microsoft.AzureFunctions.Props" Condition="'$(VSToolsPath)' != ''" />
+  <PropertyGroup>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>a462dbc3-c93a-48a8-bc1b-f55c5ecb22d8</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ASF.AzureFunctions</RootNamespace>
+    <AssemblyName>ASF.AzureFunctions</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <SharedAssembly Include="..\ASF.Shared\bin\Release\ASF.Shared.dll" />
+    <SharedAssembly Include="..\ASF.Shared\bin\Release\ASF.Shared.pdb" />
+  </ItemGroup>
+  <Import Project="$(VSToolsPath)\AzureFunctions\Microsoft.AzureFunctions.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Target Name="CopySharedAssemblies" BeforeTargets="Build">
+    <Copy SourceFiles="%(SharedAssembly.Identity)" DestinationFolder="Shared" SkipUnchangedFiles="true" />
+  </Target>
+  <Target Name="DeleteSharedAssemblies" BeforeTargets="Clean">
+    <Delete Files="Shared\%(SharedAssembly.Filename)%(SharedAssembly.Extension)" />
+  </Target>
+</Project>
