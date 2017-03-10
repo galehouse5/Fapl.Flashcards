@@ -26,7 +26,7 @@ namespace ASF.Shared.Petfinder
             request.AddParameter("count", count);
             request.AddParameter("status", status);
 
-            var response = await client.ExecuteTaskAsync<petfinder>(request);
+            var response = await client.ExecuteTaskAsyncWithRetry<petfinder>(request);
             if (response.ErrorException != null)
                 throw response.ErrorException;
 

@@ -38,6 +38,8 @@ public static async Task Run(TimerInfo timer, TraceWriter log)
 {
     var petService = new PetfinderService(petfinderApiKey);
     var flashcardService = new CramService(cramApiClientID);
+
+    log.Info("Logging in to flashcard service...");
     await flashcardService.LogIn(cramApiUsername, cramApiPassword);
     var syncService = new AzureBlobSyncService(azureWebJobsStorage);
     GenerateImageLayout imageLayoutGenerator = RecursiveShrinkingImageLayout.Generate;

@@ -123,14 +123,21 @@ namespace ASF.Shared
 
         public async Task Synchronize(string flashcardSetID, string shelterID, SyncOptions options)
         {
+            Logger?.Invoke("Retrieving flashcards...");
             var set = (await flashcardService.GetSet(flashcardSetID));
+
+            Logger?.Invoke("Retrieving pets...");
             var pets = (await petService.GetPets(shelterID, options.PetStatuses))
                 .Where(options.PetFilter)
                 .ToArray();
+
+            Logger?.Invoke("Retrieving metadata...");
             SyncMetadata metadata = await syncService.GetMetadata(flashcardSetID, shelterID)
                 ?? new SyncMetadata(flashcardSetID, shelterID);
+
             await SynchronizeFlashcards(set, pets, metadata, options);
 
+            Logger?.Invoke("Updating flashcard set...");
             set.Title = options.FlashcardSetTitle ?? set.Title;
             set.Tags = options.FlashcardSetTags ?? set.Tags;
             set.Description = options.FlashcardSetDescription ?? set.Description;

@@ -1,4 +1,5 @@
-﻿using RestSharp;
+﻿using ASF.Shared.Helpers;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,7 +51,7 @@ namespace ASF.Shared.Cram
             request.AddParameter("password", password);
             request.AddParameter("client_id", clientID);
 
-            var response = await client.ExecuteTaskAsync<dynamic>(request);
+            var response = await client.ExecuteTaskAsyncWithRetry<dynamic>(request);
             AssertOkResponse(response);
 
             client.AddDefaultHeader("Authorization", $"Bearer {response.Data["access_token"]}");
@@ -74,7 +75,7 @@ namespace ASF.Shared.Cram
             RestRequest request = new RestRequest("sets/{id}");
             request.AddUrlSegment("id", id.ToString());
 
-            var response = await client.ExecuteTaskAsync<List<CramSet>>(request);
+            var response = await client.ExecuteTaskAsyncWithRetry<List<CramSet>>(request);
             AssertOkResponse(response);
 
             return response.Data.SingleOrDefault();
@@ -95,7 +96,7 @@ namespace ASF.Shared.Cram
             request.AddParameter("lang_back", set.LangBack);
             request.AddParameter("lang_hint", set.LangHint);
 
-            var response = await client.ExecuteTaskAsync(request);
+            var response = await client.ExecuteTaskAsyncWithRetry(request);
             AssertOkResponse(response);
         }
 
@@ -124,7 +125,7 @@ namespace ASF.Shared.Cram
             request.AddUrlSegment("cardID", card.CardID.ToString());
             AddParameters(card, request);
 
-            var response = await client.ExecuteTaskAsync<dynamic>(request);
+            var response = await client.ExecuteTaskAsyncWithRetry<dynamic>(request);
             AssertOkResponse(response);
         }
 
@@ -140,7 +141,7 @@ namespace ASF.Shared.Cram
             request.AddUrlSegment("setID", set.SetID.ToString());
             AddParameters(card, request);
 
-            var response = await client.ExecuteTaskAsync<dynamic>(request);
+            var response = await client.ExecuteTaskAsyncWithRetry<dynamic>(request);
             AssertOkResponse(response);
 
             card.CardID = int.Parse(response.Data["card_id"]);
@@ -164,7 +165,7 @@ namespace ASF.Shared.Cram
             request.AddUrlSegment("setID", set.SetID.ToString());
             request.AddUrlSegment("cardID", card.CardID.ToString());
 
-            var response = await client.ExecuteTaskAsync<dynamic>(request);
+            var response = await client.ExecuteTaskAsyncWithRetry<dynamic>(request);
             AssertOkResponse(response);
 
             card.CardID = null;
@@ -190,7 +191,7 @@ namespace ASF.Shared.Cram
                 request.AddFile("image_data[]", image.Value, image.Key, contentType);
             }
 
-            var response = await client.ExecuteTaskAsync<dynamic>(request);
+            var response = await client.ExecuteTaskAsyncWithRetry<dynamic>(request);
             AssertOkResponse(response);
 
             return ((List<dynamic>)response.Data["images"])

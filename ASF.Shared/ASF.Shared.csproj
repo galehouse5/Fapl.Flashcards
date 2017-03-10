@@ -82,6 +82,7 @@
     <Compile Include="Cram\CramService.cs" />
     <Compile Include="Helpers\CustomXmlDeserializer.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
+    <Compile Include="Helpers\IRestClientHelper.cs" />
     <Compile Include="Helpers\StreamHelper.cs" />
     <Compile Include="IFlashcard.cs" />
     <Compile Include="ImageCombiner.cs" />
