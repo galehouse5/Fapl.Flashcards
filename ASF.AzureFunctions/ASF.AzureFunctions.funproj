@@ -15,14 +15,14 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
   </PropertyGroup>
   <ItemGroup>
-    <SharedAssembly Include="..\ASF.Shared\bin\$(Configuration)\ASF.Shared.dll" />
-    <SharedAssembly Include="..\ASF.Shared\bin\$(Configuration)\ASF.Shared.pdb" />
+    <SharedAssemblies Include="..\ASF.Shared\bin\$(Configuration)\**\*" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\AzureFunctions\Microsoft.AzureFunctions.targets" Condition="'$(VSToolsPath)' != ''" />
   <Target Name="CopySharedAssemblies" BeforeTargets="Build">
-    <Copy SourceFiles="%(SharedAssembly.Identity)" DestinationFolder="Shared" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(SharedAssemblies)" DestinationFolder="Shared\%(RecursiveDir)" SkipUnchangedFiles="true" />
   </Target>
   <Target Name="DeleteSharedAssemblies" BeforeTargets="Clean">
-    <Delete Files="Shared\%(SharedAssembly.Filename)%(SharedAssembly.Extension)" />
+    <RemoveDir Directories="Shared" />
+    <MakeDir Directories="Shared" />
   </Target>
 </Project>
