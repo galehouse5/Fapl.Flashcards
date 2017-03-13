@@ -600,7 +600,7 @@ public enum animalType {
     Cat,
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("Small&Furry")]
+    [System.Xml.Serialization.XmlEnumAttribute("Small & Furry")]
     SmallFurry,
     
     /// <remarks/>

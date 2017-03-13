@@ -198,7 +198,7 @@
   <xs:restriction base="xs:string">
     <xs:enumeration value="Dog"/>
     <xs:enumeration value="Cat"/>
-    <xs:enumeration value="Small&amp;Furry"/>
+    <xs:enumeration value="Small &amp; Furry"/>
     <xs:enumeration value="BarnYard"/>
     <xs:enumeration value="Bird"/>
     <xs:enumeration value="Horse"/>
