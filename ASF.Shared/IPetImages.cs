@@ -3,7 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace ASF.Shared
@@ -28,6 +30,17 @@ namespace ASF.Shared
         public static async Task<Image> GenerateCompositeImage(this IPetImages instance,
             GenerateImageLayout layoutGenerator, float margin = 0f, Color? backgroundColor = null)
         {
+            if (!instance.ImageUrls.Any())
+            {
+                using (Stream data = Assembly.GetExecutingAssembly()
+                    .GetManifestResourceStream("ASF.Shared.no-photos.jpg"))
+                using (Image image = new Bitmap(data))
+                {
+                    // Create a deep copy so we can dispose the stream without causing a GDI+ exception later on, when the image is saved.
+                    return new Bitmap(image);
+                }
+            }
+
             var disposables = new List<IDisposable>();
 
             try

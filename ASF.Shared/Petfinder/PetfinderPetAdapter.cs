@@ -40,7 +40,7 @@ namespace ASF.Shared.Petfinder
             => dto.id;
 
         public IReadOnlyCollection<string> ImageUrls
-            => dto.media.photos
+            => (dto.media.photos ?? Enumerable.Empty<petPhotoType>())
             .Where(p => p.size == petPhotoTypeSize.x)
             .Select(p => p.Value)
             .ToArray();
