@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Serialization;
 
 namespace ASF.Shared.Petfinder
 {
@@ -21,17 +20,7 @@ namespace ASF.Shared.Petfinder
             : PetAge.Young;
 
         public IReadOnlyCollection<string> Breeds
-            => dto.breeds.breed
-            .Select(b =>
-            {
-                XmlEnumAttribute attribute = typeof(petfinderBreedType)
-                    .GetMember(b.ToString()).Single()
-                    .GetCustomAttributes(typeof(XmlEnumAttribute), false)
-                    .Cast<XmlEnumAttribute>()
-                    .SingleOrDefault();
-                return attribute?.Name ?? b.ToString();
-            })
-            .ToArray();
+            => dto.breeds.breed;
 
         public string Description
             => dto.description;
