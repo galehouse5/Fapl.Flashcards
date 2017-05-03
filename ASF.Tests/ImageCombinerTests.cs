@@ -107,8 +107,6 @@ namespace ASF.Tests
             using (Image actualImage = new[] { redImage, greenImage, blueImage, grayImage }
                 .CombineImages(RecursiveShrinkingImageLayout.Generate))
             {
-                actualImage.Save(@"c:\temp\four-image-combo.png");
-
                 AssertImagesAreEqual((Bitmap)expectedImage, (Bitmap)actualImage);
             }
         }
