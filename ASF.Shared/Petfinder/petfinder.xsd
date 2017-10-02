@@ -199,7 +199,7 @@
     <xs:enumeration value="Dog"/>
     <xs:enumeration value="Cat"/>
     <xs:enumeration value="Small &amp; Furry"/>
-    <xs:enumeration value="BarnYard"/>
+    <xs:enumeration value="Barnyard"/>
     <xs:enumeration value="Bird"/>
     <xs:enumeration value="Horse"/>
     <xs:enumeration value="Pig"/>

@@ -56,7 +56,7 @@ namespace ASF.Shared.Petfinder
             : PetStatus.AdoptedOrRemoved;
 
         public PetType Type
-            => dto.animal == animalType.BarnYard ? PetType.BarnYard
+            => dto.animal == animalType.Barnyard ? PetType.BarnYard
             : dto.animal == animalType.Bird ? PetType.Bird
             : dto.animal == animalType.Cat ? PetType.Cat
             : dto.animal == animalType.Dog ? PetType.Dog

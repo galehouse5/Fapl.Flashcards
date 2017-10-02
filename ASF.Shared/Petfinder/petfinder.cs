@@ -604,7 +604,7 @@ public enum animalType {
     SmallFurry,
     
     /// <remarks/>
-    BarnYard,
+    Barnyard,
     
     /// <remarks/>
     Bird,
