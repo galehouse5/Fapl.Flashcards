@@ -1,0 +1,18 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "(private)",
+    "AzureWebJobsDashboard": "(private)",
+    "PetfinderApiKey": "(private)",
+    "CramApiClientID": "1b8169e3a85b973cee5fba6705b8dbaa",
+    "CramApiUsername": "(private)",
+    "CramApiPassword": "(private)",
+    "FlashcardSetID": "(private)",
+    "FlashcardSetTitle": "Friendship APL Dogs for Volunteers (as of {0:h:mm tt ddd, MMM d})",
+    "FlashcardSetDescription": "Helps volunteers of Friendship APL in Elyria, Ohio memorize the names of the dogs they handle. Flashcards are synchronized hourly with the dogs posted for adoption through Petfinder.com, which excludes most dogs in the isolation room. Puppies are also excluded because they're adopted so quickly and mostly kept in their cages.",
+    "FlashcardPetTypes": "Dog",
+    "FlashcardPetAges": "Young, Adult, Senior",
+    "ShelterID": "OH166",
+    "ShelterTimeZone": "Eastern Standard Time"
+  }
+}
