@@ -35,6 +35,13 @@ namespace Fapl.Flashcards.Shared.ImageLayout
             throw new NotSupportedException();
         }
 
+        public static float GetPosition(this Orientation orientation, PointF location)
+        {
+            if (orientation == Orientation.Horizontal) return location.X;
+            if (orientation == Orientation.Vertical) return location.Y;
+            throw new NotSupportedException();
+        }
+
         public static float GetProportion(this Orientation orientation, SizeF size)
         {
             if (orientation == Orientation.Horizontal) return size.Height / size.Width;
@@ -78,16 +85,13 @@ namespace Fapl.Flashcards.Shared.ImageLayout
             else if (elements.Count() > 2)
             {
                 MutableRectangleF firstElement = elements.First();
-                MutableRectangleF secondElement = elements.Skip(1).First();
-                MutableRectangleF thirdElement = elements.Skip(2).First();
-
                 var otherElements = elements.Skip(1);
 
                 LayOut(otherElements, opposingOrientation);
 
                 float firstOpposingLength = opposingOrientation.GetLength(firstElement.Size);
-                float othersOpposingLength = opposingOrientation.GetLength(secondElement.Size)
-                    + opposingOrientation.GetLength(thirdElement.Size);
+                float othersOpposingLength = otherElements
+                    .Max(e => opposingOrientation.GetPosition(e.Location) + opposingOrientation.GetLength(e.Size));
                 float minOppostingLength = Math.Min(firstOpposingLength, othersOpposingLength);
 
                 firstElement.Location = PointF.Empty;
